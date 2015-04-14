@@ -1,0 +1,12 @@
+{
+  "name": "nback",
+  "description": "web-based version of the memory training game nback",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "http-server -a localhost -p 8000"
+  },
+  "dependencies": {
+    "bower": "^1.4.1",
+    "http-server": "^0.8.0"
+  }
+}
