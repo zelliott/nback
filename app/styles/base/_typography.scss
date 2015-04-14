@@ -2,20 +2,27 @@ body,
 input,
 textarea,
 button {
-  font: 16px Avenir Next;
+  font: 14px Avenir Next;
   font-weight: 500;
-  color: #333;
+  color: #222;
   -webkit-font-smoothing: antialiased;
 }
 
-h1 {
+a {
+  text-decoration: none;
+}
 
+h1 {
+  font-weight: 500;
+  font-size: 40px;
 }
 
 h2 {
-
+  color: #999;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 h3 {
-  
+
 }

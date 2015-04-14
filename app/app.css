@@ -2,17 +2,29 @@ body,
 input,
 textarea,
 button {
-  font: 16px Avenir Next;
+  font: 14px Avenir Next;
   font-weight: 500;
-  color: #333;
+  color: #222;
   -webkit-font-smoothing: antialiased; }
+
+a {
+  text-decoration: none; }
+
+h1 {
+  font-weight: 500;
+  font-size: 40px; }
+
+h2 {
+  color: #999;
+  font-weight: 500;
+  font-size: 18px; }
 
 .btn {
   background: #333;
   border: 2px solid #333;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
   background-clip: padding-box;
   color: #fff;
   font-weight: 600;
@@ -21,9 +33,25 @@ button {
 .btn-blue {
   background: #00aced;
   border-color: #00aced; }
+  .btn-blue:hover {
+    border-color: #0087ba; }
 
 .btn-orange {
   background: #f2a43e;
   border-color: #f2a43e; }
+  .btn-orange:hover {
+    border-color: #ed8d10; }
+
+#home-section {
+  margin: 200px auto 0 auto;
+  width: 300px;
+  text-align: center; }
+  #home-section h1 {
+    margin: 0 0 5px 0; }
+  #home-section h2 {
+    margin: 0 0 20px 0; }
+  #home-section .btn {
+    display: inline-block;
+    margin: 0 10px; }
 
 /*# sourceMappingURL=app.css.map */
