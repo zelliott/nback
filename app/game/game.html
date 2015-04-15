@@ -1,8 +1,35 @@
-<div id="game-section" class="max-width" ng-init="init()">
+<div id="game-section" class="max-width">
   <div id="game-sidebar">
-    <button class="btn btn-orange" ng-click="start()">Start</button>
+    <div ng-show="!gameMode">
+      <div class="sidebar-title">Game Settings</div>
+      <div class="info">{{ user.game.level }} Back</div>
+      <div class="info">{{ user.game.trials }} trials</div>
+      <div class="info">{{ user.game.time / 1000 }} sec / trial</div>
+      <button class="btn btn-orange" ng-click="start()">Start</button>
+    </div>
+    <div ng-show="gameMode">
+      <button class="btn btn-text">
+        <svg class="icon" viewBox="0 0 8 8">
+          <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#arrow-left" class="icon-arrow-left"></use>
+        </svg>
+        Cancel
+      </button>
+      <button class="btn btn-green">
+        <svg class="icon" viewBox="0 0 8 8">
+          <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#media-pause" class="icon-media-pause"></use>
+        </svg>
+        Pause
+      </button>
+
+    </div>
   </div>
   <div id="game">
-
+    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+  </div>
+  <div id="controls" ng-show="gameMode">
+    <div class="left"><span class="key">A</span>Position Match</div>
+    <div class="right">Audio Match <span class="key">L</span></div>
   </div>
 </div>

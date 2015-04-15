@@ -2,7 +2,7 @@ body,
 input,
 textarea,
 button {
-  font: 14px Avenir Next;
+  font: 16px Avenir Next;
   font-weight: 500;
   color: #222;
   -webkit-font-smoothing: antialiased;
@@ -27,4 +27,13 @@ h2 {
 
 h3 {
 
+}
+
+.key {
+  background: #222;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  @include border-radius(2px);
 }

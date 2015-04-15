@@ -1,7 +1,51 @@
 #game-section {
 
   #game-sidebar {
-    text-align: center;
-    width: 120px;
+    display: inline-block;
+    width: 150px;
+    vertical-align: top;
+
+    .sidebar-title {
+      color: #222;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+  .info {
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  }
+
+  #game {
+    display: inline-block;
+    margin-left: 100px;
+    width: 450px;
+    vertical-align: top;
+
+    > .tile {
+      background: #eee;
+      float: left;
+      height: 140px;
+      width: 140px;
+      margin: 5px;
+    }
+  }
+
+  #controls {
+    margin: 20px 0 0 255px;
+    width: 450px;
+
+    > div {
+      display: inline-block;
+
+      .key {
+        margin: 0 10px;
+      }
+    }
   }
 }

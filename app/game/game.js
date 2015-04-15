@@ -1,4 +1,4 @@
-angular.module('app.game', ['ngRoute', 'ngAudio'])
+angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -15,16 +15,31 @@ angular.module('app.game', ['ngRoute', 'ngAudio'])
   }])
 
   .controller('GameCtrl',
-    ['currentAuth', '$scope', 'GameService', 'KeyboardService',
-    function (currentAuth, $scope, GameService, KeyboardService) {
+    ['currentAuth', '$scope', 'GameService', 'KeyboardService', 'User',
+    function (currentAuth, $scope, GameService, KeyboardService, User) {
+
+    // Save user to scope
+    $scope.user = User;
+
+    // Upon load from firebase, initialize the game
+    $scope.user.$loaded()
+      .then(function () {
+        $scope.init();
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
 
     $scope.init = function () {
+      $scope.gameMode = false;
+      KeyboardService.init();
+      GameService.init();
 
       // Build board
-      // Grab user settings
     };
 
     $scope.start = function () {
+      $scope.gameMode = true;
       GameService.start();
     };
 

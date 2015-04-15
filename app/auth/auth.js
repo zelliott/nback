@@ -19,18 +19,17 @@ angular.module('app.auth', ['ngRoute', 'firebase', 'firebase.auth'])
           console.log('User ' + data.uid + ' created successfully');
 
           // Create basic user information
-          var ref = new Firebase(FBURL + '/users/');
+          var ref = new Firebase(FBURL + '/users/' + data.uid);
           var user = $firebaseObject(ref);
-          user.uid = data.uid;
           user.game = {
             level: 1,
             trials: 30,
             time: 3000
           };
           user.$save().then(function (ref) {
-            ref.key() === obj.$id; // true
+            console.log('Success: ', ref);
           }, function(error) {
-            console.log("Error:", error);
+            console.log("Error: ", error);
           });
 
           return Auth.$authWithPassword({
