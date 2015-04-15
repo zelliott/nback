@@ -1,3 +1,13 @@
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.max-width {
+  margin: 0 auto;
+  width: 1000px; }
+
 body,
 input,
 textarea,
@@ -8,6 +18,7 @@ button {
   -webkit-font-smoothing: antialiased; }
 
 a {
+  color: inherit;
   text-decoration: none; }
 
 h1 {
@@ -18,6 +29,9 @@ h2 {
   color: #999;
   font-weight: 500;
   font-size: 18px; }
+
+button:focus {
+  outline: none; }
 
 .btn {
   background: #333;
@@ -42,8 +56,47 @@ h2 {
   .btn-orange:hover {
     border-color: #ed8d10; }
 
+input[type=text],
+input[type=email],
+input[type=password] {
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  background-clip: padding-box;
+  display: block;
+  padding: 5px 15px; }
+  input[type=text]:hover,
+  input[type=email]:hover,
+  input[type=password]:hover {
+    border-color: #bbb; }
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus {
+    outline: none; }
+
+#auth-section {
+  margin-top: 120px;
+  text-align: center; }
+  #auth-section > div {
+    display: inline-block;
+    padding: 0 100px; }
+    #auth-section > div > div {
+      font-size: 18px;
+      font-weight: 600; }
+    #auth-section > div > form > * {
+      margin-top: 20px; }
+
+#header {
+  color: #999;
+  height: 60px;
+  font-size: 16px;
+  line-height: 60px; }
+  #header a:hover {
+    color: #222; }
+
 #home-section {
-  margin: 200px auto 0 auto;
+  margin: 160px auto 0 auto;
   width: 300px;
   text-align: center; }
   #home-section h1 {

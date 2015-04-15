@@ -1,0 +1,19 @@
+<div id="auth-section" class="max-width">
+  <div id="login">
+    <div>Login</div>
+    <form>
+      <input type="email" placeholder="Email" ng-model="login.email"/>
+      <input type="password" placeholder="Password" ng-model="login.pass"/>
+      <button class="btn btn-blue" ng-click="login(login.email, login.pass)">Login</button>
+    </form>
+  </div>
+
+  <div id="signup">
+    <div>Signup</div>
+    <form>
+      <input type="email" placeholder="Email" ng-model="signup.email"/>
+      <input type="password" placeholder="Password" ng-model="signup.pass"/>
+      <button class="btn btn-blue" ng-click="signup(signup.email, signup.pass)">Signup</button>
+    </form>
+  </div>
+</div>

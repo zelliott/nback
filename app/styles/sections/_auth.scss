@@ -1,0 +1,20 @@
+#auth-section {
+  margin-top: 120px;
+  text-align: center;
+
+  > div {
+    display: inline-block;
+    padding: 0 100px;
+
+    > div {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    > form {
+      > * {
+        margin-top: 20px;
+      }
+    }
+  }
+}

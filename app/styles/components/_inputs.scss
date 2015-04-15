@@ -1,0 +1,16 @@
+input[type=text],
+input[type=email],
+input[type=password] {
+  border: 1px solid #ddd;
+  @include border-radius(20px);
+  display: block;
+  padding: 5px 15px;
+
+  &:hover {
+    border-color: #bbb;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
