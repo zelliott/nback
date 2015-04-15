@@ -12,6 +12,7 @@ angular.module('app', [
     // Bring whether or not the user is logged in into the $rootScope
     Auth.$onAuth(function(user) {
       $rootScope.loggedIn = !!user;
+      $rootScope.auth = Auth;
     });
 
     /* If you try to go to a page that requires authentication, and you are

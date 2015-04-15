@@ -7,7 +7,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio'])
 
       // Require authentication for this page
       resolve: {
-        'currentAuth': ['Auth', function(Auth) {
+        'currentAuth': ['Auth', function (Auth) {
           return Auth.$requireAuth();
         }]
       }
@@ -42,7 +42,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio'])
     this.init = function () {
       var self = this;
       this.keyEventHandlers = [];
-      $document.bind('keydown', function(evt) {
+      $document.bind('keydown', function (evt) {
         var key = keyMap[evt.which];
 
         if (key) {

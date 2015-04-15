@@ -19,6 +19,7 @@ button {
 
 a {
   color: inherit;
+  cursor: pointer;
   text-decoration: none; }
 
 h1 {
@@ -92,10 +93,6 @@ input[type=password] {
 #game-section #game-sidebar {
   text-align: center;
   width: 120px; }
-  #game-section #game-sidebar #sidebar-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 20px; }
 
 #header {
   color: #999;
