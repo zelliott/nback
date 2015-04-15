@@ -1,42 +1,40 @@
-angular.module('app.auth', ['ngRoute', 'firebase'])
+angular.module('app.auth', ['ngRoute', 'firebase', 'firebase.auth'])
 
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/auth', {
       controller: 'AuthCtrl',
       templateUrl: 'auth/auth.html'
     });
   }])
 
-  .controller('AuthCtrl', ['$scope', '$firebaseAuth', 'FBURL',
-    function($scope, $firebaseAuth, FBURL) {
-      var ref = new Firebase(FBURL),
-        auth = $firebaseAuth(ref);
+  .controller('AuthCtrl', ['$scope', '$firebaseAuth', 'FBURL', 'Auth',
+    function ($scope, $firebaseAuth, FBURL, Auth) {
 
       $scope.signup = function (email, pass) {
-        auth.$createUser({
+        Auth.$createUser({
           email: email,
           password: pass
         }).then(function (data) {
-          console.log("User " + data.uid + " created successfully");
+          console.log('User ' + data.uid + ' created successfully');
           return auth.$authWithPassword({
             email: email,
             password: pass
           });
         }).then(function (data) {
-          console.log("Logged in as:", data.uid);
+          console.log('Logged in as:', data.uid);
         }).catch(function (error) {
-          console.error("Authentication failed: ", error);
+          console.error('Authentication failed: ', error);
         });
       };
 
       $scope.login = function (email, pass) {
-        auth.$authWithPassword({
+        Auth.$authWithPassword({
           email: email,
           password: pass
         }).then(function (data) {
-          console.log("Logged in as:", data.uid);
+          console.log('Logged in as:', data.uid);
         }).catch(function (error) {
-          console.error("Authentication failed:", error);
+          console.error('Authentication failed:', error);
         });
       };
   }]);

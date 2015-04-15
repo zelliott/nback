@@ -1,5 +1,6 @@
 <div id="header">
   <div class="max-width">
-    <a class="right" href="#/auth">Sign up</a>
+    <a ng-show="!loggedIn" class="right" href="#/auth">Sign up</a>
+    <a ng-show="loggedIn" class="right" href="">Logout</a>
   </div>
 </div>
