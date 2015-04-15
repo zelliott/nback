@@ -2,5 +2,10 @@
   <div class="max-width">
     <a ng-show="!loggedIn" class="right" href="#/auth">Sign up</a>
     <a ng-show="loggedIn" class="right" href="">Logout</a>
+    <a ng-show="loggedIn" href="#/settings" class="right">
+      <svg class="icon" viewBox="0 0 8 8">
+        <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#cog" class="icon-cog"></use>
+      </svg>
+    </a>
   </div>
 </div>

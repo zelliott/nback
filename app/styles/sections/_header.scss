@@ -5,8 +5,21 @@
   line-height: 60px;
 
   a {
+    margin-left: 40px;
+
     &:hover {
       color: #222;
+
+      > .icon {
+        fill: #222;
+      }
+    }
+
+    > .icon {
+      fill: #999;
+      height: 16px;
+      width: 16px;
+      vertical-align: middle;
     }
   }
 }
