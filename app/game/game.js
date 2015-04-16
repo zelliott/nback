@@ -31,25 +31,41 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       });
 
     $scope.init = function () {
-      $scope.gameMode = false;
       KeyboardService.init();
-      GameService.init();
-
-      // Build board
+      GameService.reset();
     };
 
     $scope.start = function () {
-      $scope.gameMode = true;
       GameService.start($scope.user.game);
     };
 
-    $scope.pause = function () {
-
+    $scope.quit = function () {
+      GameService.reset();
     };
 
-    $scope.quit = function () {
-      $scope.gameMode = false;
-      GameService.reset();
+    $scope.pause = function () {
+      GameService.pause();
+    };
+
+    $scope.resume = function () {
+      GameService.resume();
+    };
+
+    $scope.paused = function () {
+      return GameService.paused;
+    };
+
+    $scope.gameMode = function () {
+      return GameService.gameMode;
+    };
+
+    $scope.board = function () {
+      return GameService.board;
+    };
+
+    // Not working
+    $scope.remainding = function () {
+      return GameService.remainding;
     };
 
   }])
@@ -65,21 +81,43 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
     this.init = function () {
       var self = this;
-      this.keyEventHandlers = [];
-      $document.bind('keydown', function (evt) {
-        var key = keyMap[evt.which];
+      this.eventHandlers = [];
+      $document.bind('keydown', function (e) {
+        var key = keyMap[e.which];
 
         if (key) {
+          console.log(key);
+
           // An interesting key was pressed
-          evt.preventDefault();
-          self._handleKeyEvent(key, evt);
+          e.preventDefault();
+          self.handleEvent(key, e);
         }
       });
     };
 
+    this.on = function (cb) {
+      this.eventHandlers.push(cb);
+    };
+
+    this.handleEvent = function (key, e) {
+      var callbacks = this.eventHandlers;
+      if (!callbacks) {
+        return;
+      }
+
+      e.preventDefault();
+
+      if (callbacks) {
+        for (var i = 0; i < callbacks.length; i++) {
+          var cb = callbacks[i];
+          cb(key, e);
+        }
+      }
+    };
+
   })
 
-  .service('GameService', function ($timeout, ngAudio) {
+  .service('GameService', function ($interval, $timeout, ngAudio) {
 
     this.audioMap = {
       0: 'A',
@@ -93,29 +131,36 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       8: 'I'
     };
 
-    this.sequence = [
-
-    ];
-
-    // Unimplemented
-    this.init = function () {
-
-    }
+    this.sequence = [];
+    this.board = [];
 
     this.reset = function () {
-      this.sequence.empty();
+      this.paused = false;
+      this.gameMode = false;
+      this.sequence = [];
+      this.resetBoard();
     }
 
     this.start = function (data) {
-
+      this.gameMode = true;
       this.generateSequence(data);
+      this.remainding = data.trials;
 
-      for (var i = 0; i < this.sequence.length; i++) {
-        this.step();
-        this.waitForResponse();
-      }
+      var i = 0,
+        self = this;
 
+      var gameLoop = $interval(function () {
 
+        // If we're not in the game mode any more, cancel the loop
+        if (!self.gameMode) {
+          $interval.cancel(gameLoop);
+
+        // Otherwise, step through the loop again
+        } else {
+          self.step(i++);
+          self.remainding-- ;
+        }
+      }, data.time, data.trials);
     };
 
     // Randomly generate sequence of positions & audios
@@ -128,11 +173,10 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         trial.position = Math.floor(Math.random() * 8);
         trial.audio = this.audioMap[Math.floor(Math.random() * 8)];
 
-        // If we won't be out of the sequence
+        // If we're still in the sequence
         if (i - n >= 0) {
 
           // If position match
-          console.log(this.sequence[i-n]);
           if (this.sequence[i - n].position === trial.position) {
             trial.answer = {
               position: true,
@@ -153,16 +197,34 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
         this.sequence.push(trial);
       }
-
-      console.log(this.sequence);
     };
 
-    this.step = function () {
+    this.pause = function () {
+      this.paused = true;
+    };
+
+    this.resume = function () {
+      this.paused = false;
+    };
+
+    this.step = function (i) {
+      this.board[this.sequence[i].position].on = true;
+
+      var self = this;
+      $timeout(function () {
+        self.board[self.sequence[i].position].on = false;
+      }, 1000);
+    };
+
+    this.waitForAnswer = function () {
 
     };
 
-    this.waitForResponse = function () {
-
+    this.resetBoard = function () {
+      this.board = [];
+      for (var i = 0; i <= 8; i++) {
+        this.board.push({ on: false });
+      }
     };
 
   });

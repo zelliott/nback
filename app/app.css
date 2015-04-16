@@ -146,12 +146,21 @@ input[type=password] {
   margin-left: 100px;
   width: 450px;
   vertical-align: top; }
-  #game-section #game > .tile {
+  #game-section #game .square {
     background: #eee;
     float: left;
-    height: 140px;
-    width: 140px;
+    height: 120px;
+    width: 120px;
+    padding: 10px;
     margin: 5px; }
+    #game-section #game .square > div {
+      background: #54d0ff;
+      height: 120px;
+      width: 120px;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      background-clip: padding-box; }
 #game-section #controls {
   margin: 20px 0 0 255px;
   width: 450px; }

@@ -1,34 +1,40 @@
 <div id="game-section" class="max-width">
   <div id="game-sidebar">
-    <div ng-show="!gameMode">
+    <div ng-show="!gameMode()">
       <div class="sidebar-title">Game Settings</div>
       <div class="info">{{ user.game.level }} Back</div>
       <div class="info">{{ user.game.trials }} trials</div>
       <div class="info">{{ user.game.time / 1000 }} sec / trial</div>
       <button class="btn btn-orange" ng-click="start()">Start</button>
     </div>
-    <div ng-show="gameMode">
+    <div ng-show="gameMode()">
       <button class="btn btn-text" ng-click="quit()">
         <svg class="icon" viewBox="0 0 8 8">
           <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#arrow-left" class="icon-arrow-left"></use>
         </svg>
         Cancel
       </button>
-      <button class="btn btn-green" ng-click="pause()">
+      <button class="btn btn-green" ng-click="pause()" ng-show="!paused()">
         <svg class="icon" viewBox="0 0 8 8">
           <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#media-pause" class="icon-media-pause"></use>
         </svg>
         Pause
       </button>
-      <div class="remaining info">{{ }} remaining</div>
+      <button class="btn btn-orange" ng-click="resume()" ng-show="paused()">
+        <svg class="icon" viewBox="0 0 8 8">
+          <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#media-play" class="icon-media-play"></use>
+        </svg>
+        Resume
+      </button>
+      <div class="remaining info">{{ remaining() }} remaining</div>
     </div>
   </div>
   <div id="game">
-    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
-    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
-    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    <div class="square" ng-repeat="square in board()">
+      <div ng-show="square.on"></div>
+    </div>
   </div>
-  <div id="controls" ng-show="gameMode">
+  <div id="controls" ng-show="gameMode()">
     <div class="left"><span class="key">A</span>Position Match</div>
     <div class="right">Audio Match <span class="key">L</span></div>
   </div>
