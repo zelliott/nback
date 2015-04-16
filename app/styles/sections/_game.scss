@@ -4,6 +4,7 @@
     display: inline-block;
     width: 150px;
     vertical-align: top;
+    text-align: center;
 
     .sidebar-title {
       color: #222;
@@ -18,6 +19,10 @@
 
     button {
       margin-top: 10px;
+    }
+
+    .remaining {
+      margin-top: 40px;
     }
   }
 

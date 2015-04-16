@@ -43,6 +43,15 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       GameService.start();
     };
 
+    $scope.pause = function () {
+
+    };
+
+    $scope.quit = function () {
+      $scope.gameMode = false;
+      GameService.reset();
+    };
+
   }])
 
   .service('KeyboardService', function ($document, ngAudio) {
@@ -76,8 +85,13 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
     ];
 
+    // Unimplemented
     this.init = function () {
 
+    }
+
+    this.reset = function () {
+      this.sequence.empty();
     }
 
     this.start = function () {

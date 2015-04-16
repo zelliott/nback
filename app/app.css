@@ -128,7 +128,8 @@ input[type=password] {
 #game-section #game-sidebar {
   display: inline-block;
   width: 150px;
-  vertical-align: top; }
+  vertical-align: top;
+  text-align: center; }
   #game-section #game-sidebar .sidebar-title {
     color: #222;
     font-weight: 600;
@@ -138,6 +139,8 @@ input[type=password] {
     margin-bottom: 10px; }
   #game-section #game-sidebar button {
     margin-top: 10px; }
+  #game-section #game-sidebar .remaining {
+    margin-top: 40px; }
 #game-section #game {
   display: inline-block;
   margin-left: 100px;

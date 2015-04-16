@@ -8,19 +8,19 @@
       <button class="btn btn-orange" ng-click="start()">Start</button>
     </div>
     <div ng-show="gameMode">
-      <button class="btn btn-text">
+      <button class="btn btn-text" ng-click="quit()">
         <svg class="icon" viewBox="0 0 8 8">
           <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#arrow-left" class="icon-arrow-left"></use>
         </svg>
         Cancel
       </button>
-      <button class="btn btn-green">
+      <button class="btn btn-green" ng-click="pause()">
         <svg class="icon" viewBox="0 0 8 8">
           <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#media-pause" class="icon-media-pause"></use>
         </svg>
         Pause
       </button>
-
+      <div class="remaining info">{{ }} remaining</div>
     </div>
   </div>
   <div id="game">
