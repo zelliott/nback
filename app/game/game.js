@@ -40,7 +40,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
     $scope.start = function () {
       $scope.gameMode = true;
-      GameService.start();
+      GameService.start($scope.user.game);
     };
 
     $scope.pause = function () {
@@ -81,6 +81,18 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
   .service('GameService', function ($timeout, ngAudio) {
 
+    this.audioMap = {
+      0: 'A',
+      1: 'B',
+      2: 'C',
+      3: 'D',
+      4: 'E',
+      5: 'F',
+      6: 'G',
+      7: 'H',
+      8: 'I'
+    };
+
     this.sequence = [
 
     ];
@@ -94,11 +106,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       this.sequence.empty();
     }
 
-    this.start = function () {
+    this.start = function (data) {
 
-      this.generateSequence();
+      this.generateSequence(data);
 
-      for (var i = 0; i < sequence.length; i++) {
+      for (var i = 0; i < this.sequence.length; i++) {
         this.step();
         this.waitForResponse();
       }
@@ -106,8 +118,43 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
     };
 
-    this.generateSequence = function () {
-      // Randomly generate sequence of positions & audios
+    // Randomly generate sequence of positions & audios
+    this.generateSequence = function (data) {
+      var trials = data.trials,
+          n = data.level;
+
+      for (var i = 0; i < trials; i++) {
+        var trial = {};
+        trial.position = Math.floor(Math.random() * 8);
+        trial.audio = this.audioMap[Math.floor(Math.random() * 8)];
+
+        // If we won't be out of the sequence
+        if (i - n >= 0) {
+
+          // If position match
+          console.log(this.sequence[i-n]);
+          if (this.sequence[i - n].position === trial.position) {
+            trial.answer = {
+              position: true,
+              audio: false
+            }
+          } else {
+            trial.answer = {
+              position: false,
+              audio: false
+            }
+          }
+
+          // If audio match
+          if (this.sequence[i - n].audio === trial.audio) {
+            trial.answer.audio = true;
+          }
+        }
+
+        this.sequence.push(trial);
+      }
+
+      console.log(this.sequence);
     };
 
     this.step = function () {
