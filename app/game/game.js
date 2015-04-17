@@ -27,7 +27,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         $scope.init();
       })
       .catch(function (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
 
     $scope.init = function () {
@@ -114,7 +114,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
   })
 
-  .service('GameService', function ($interval, $timeout, ngAudio, KeyboardService) {
+  .service('GameService', function ($interval, $timeout, ngAudio, KeyboardService, User) {
 
     this.audioMap = {
       0: 'B',
@@ -186,6 +186,9 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         if (gameCompleted) {
           self.generateReport();
         }
+
+        // Reset game
+        self.reset();
       });
     };
 
@@ -291,6 +294,18 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       report.accuracyTotal = (report.correctPosition + report.correctAudio) /
         (report.total * 2);
 
+      // Save report
+      if (User.reports !== undefined) {
+        console.log(User.reports);
+        User.reports.push(report);
+      } else {
+        User.reports = [report];
+      }
+      User.$save().then(function (ref) {
+        console.log('Success: ', ref);
+      }, function (error) {
+        console.log('Error:', error);
+      });
     };
 
   });
