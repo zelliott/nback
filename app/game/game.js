@@ -117,15 +117,14 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
   .service('GameService', function ($interval, $timeout, ngAudio, KeyboardService) {
 
     this.audioMap = {
-      0: 'A',
-      1: 'B',
-      2: 'C',
-      3: 'D',
-      4: 'E',
-      5: 'F',
-      6: 'G',
-      7: 'H',
-      8: 'I'
+      0: 'B',
+      1: 'F',
+      2: 'K',
+      3: 'N',
+      4: 'P',
+      5: 'Q',
+      6: 'R',
+      7: 'T'
     };
 
     this.sequence = [];
@@ -179,12 +178,15 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           that.remaining--;
           i++;
         }
-      }, data.time, data.trials);
+      }, 1000, data.trials);
 
-      // If we have none remaining
-      if (this.remaining === 0) {
-        
-      }
+      // If game is completed
+      gameLoop.then(function () {
+        var gameCompleted = (self.remaining === 0);
+        if (gameCompleted) {
+          self.generateReport();
+        }
+      });
     };
 
     // Randomly generate sequence of positions & audios
@@ -195,7 +197,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       for (var i = 0; i < trials; i++) {
         var trial = {};
         trial.position = Math.floor(Math.random() * 8);
-        trial.audio = this.audioMap[Math.floor(Math.random() * 8)];
+        trial.audio = this.audioMap[Math.floor(Math.random() * 7)];
 
         // If we're still in the sequence
         if (i - n >= 0) {
@@ -217,6 +219,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           if (this.sequence[i - n].audio === trial.audio) {
             trial.answer.audio = true;
           }
+        } else if (i == 0) {
+          trial.answer = {
+            position: false,
+            audio: false
+          };
         }
 
         trial.player = {
@@ -238,15 +245,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
     this.step = function (i) {
       this.board[this.sequence[i].position].on = true;
-
+      ngAudio.play('assets/audio/' + (this.sequence[i].audio).toLowerCase() + '.mp3');
       var self = this;
       $timeout(function () {
         self.board[self.sequence[i].position].on = false;
       }, 1000);
-    };
-
-    this.waitForAnswer = function () {
-
     };
 
     this.resetBoard = function () {
@@ -254,6 +257,40 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       for (var i = 0; i <= 8; i++) {
         this.board.push({ on: false });
       }
+    };
+
+    this.generateReport = function () {
+
+      var report = {
+        total: this.sequence.length,
+        correctPosition: 0,
+        incorrectPosition: 0,
+        accuracyPosition: 0,
+        correctAudio: 0,
+        incorrectAudio: 0,
+        accuracyAudio: 0,
+        accuracyTotal: 0
+      }
+
+
+      for (var i = 0; i < this.sequence.length; i++) {
+        var trial = this.sequence[i];
+        if (trial.answer.position === trial.player.position) {
+          report.correctPosition++;
+        }
+
+        if (trial.answer.audio === trial.player.audio) {
+          report.correctAudio++;
+        }
+      }
+
+      report.incorrectPosition = report.total - report.correctPosition;
+      report.accuracyPosition = report.correctPosition / report.total;
+      report.incorrectAudio = report.total - report.correctAudio;
+      report.accuracyAudio = report.correctAudio / report.total;
+      report.accuracyTotal = (report.correctPosition + report.correctAudio) /
+        (report.total * 2);
+
     };
 
   });
