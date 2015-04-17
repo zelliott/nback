@@ -1,16 +1,16 @@
 #game-section {
+  margin-top: 20px;
+
+  .sidebar-title {
+    color: #222;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
 
   #game-sidebar {
     display: inline-block;
     width: 150px;
     vertical-align: top;
-    text-align: center;
-
-    .sidebar-title {
-      color: #222;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
 
   .info {
       color: #999;
@@ -28,7 +28,7 @@
 
   #game {
     display: inline-block;
-    margin-left: 100px;
+    margin: 0 100px;
     width: 450px;
     vertical-align: top;
 
@@ -47,6 +47,11 @@
         @include border-radius(5px);
       }
     }
+  }
+
+  #game-progress {
+    display: inline-block;
+    vertical-align: top;
   }
 
   #controls {

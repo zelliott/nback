@@ -34,6 +34,15 @@
       <div ng-show="square.on"></div>
     </div>
   </div>
+  <div id="game-progress">
+    <div class="sidebar-title">Progress</div>
+    <div ng-repeat="round in user.reports">
+      <div>4/17/2015</div>
+      <div>{{ round.accuracyTotal }}</div>
+      <div>{{ round.incorrectPosition }}</div>
+      <div>{{ round.incorrectAudio }}</div>
+    </div>
+  </div>
   <div id="controls" ng-show="gameMode()">
     <div class="left"><span class="key">A</span>Position Match</div>
     <div class="right">Audio Match <span class="key">L</span></div>

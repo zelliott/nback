@@ -125,54 +125,58 @@ input[type=password] {
     #auth-section > div > form > * {
       margin-top: 20px; }
 
-#game-section #game-sidebar {
-  display: inline-block;
-  width: 150px;
-  vertical-align: top;
-  text-align: center; }
-  #game-section #game-sidebar .sidebar-title {
+#game-section {
+  margin-top: 20px; }
+  #game-section .sidebar-title {
     color: #222;
     font-weight: 600;
     margin-bottom: 20px; }
-  #game-section #game-sidebar .info {
-    color: #999;
-    margin-bottom: 10px; }
-  #game-section #game-sidebar button {
-    margin-top: 10px; }
-  #game-section #game-sidebar .remaining {
-    margin-top: 40px; }
-#game-section #game {
-  display: inline-block;
-  margin-left: 100px;
-  width: 450px;
-  vertical-align: top; }
-  #game-section #game .square {
-    background: #eee;
-    float: left;
-    height: 120px;
-    width: 120px;
-    padding: 10px;
-    margin: 5px; }
-    #game-section #game .square > div {
-      background: #54d0ff;
+  #game-section #game-sidebar {
+    display: inline-block;
+    width: 150px;
+    vertical-align: top; }
+    #game-section #game-sidebar .info {
+      color: #999;
+      margin-bottom: 10px; }
+    #game-section #game-sidebar button {
+      margin-top: 10px; }
+    #game-section #game-sidebar .remaining {
+      margin-top: 40px; }
+  #game-section #game {
+    display: inline-block;
+    margin: 0 100px;
+    width: 450px;
+    vertical-align: top; }
+    #game-section #game .square {
+      background: #eee;
+      float: left;
       height: 120px;
       width: 120px;
-      border-radius: 5px;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
-      background-clip: padding-box; }
-#game-section #controls {
-  margin: 20px 0 0 255px;
-  width: 450px; }
-  #game-section #controls > div {
-    display: inline-block; }
-    #game-section #controls > div .key {
-      margin: 0 10px; }
-  #game-section #controls .control-on {
-    color: #00aced; }
-    #game-section #controls .control-on .key {
-      background: #00aced;
-      color: #fff; }
+      padding: 10px;
+      margin: 5px; }
+      #game-section #game .square > div {
+        background: #54d0ff;
+        height: 120px;
+        width: 120px;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background-clip: padding-box; }
+  #game-section #game-progress {
+    display: inline-block;
+    vertical-align: top; }
+  #game-section #controls {
+    margin: 20px 0 0 255px;
+    width: 450px; }
+    #game-section #controls > div {
+      display: inline-block; }
+      #game-section #controls > div .key {
+        margin: 0 10px; }
+    #game-section #controls .control-on {
+      color: #00aced; }
+      #game-section #controls .control-on .key {
+        background: #00aced;
+        color: #fff; }
 
 #header {
   color: #999;
