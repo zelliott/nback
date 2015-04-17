@@ -168,6 +168,11 @@ input[type=password] {
     display: inline-block; }
     #game-section #controls > div .key {
       margin: 0 10px; }
+  #game-section #controls .control-on {
+    color: #00aced; }
+    #game-section #controls .control-on .key {
+      background: #00aced;
+      color: #fff; }
 
 #header {
   color: #999;

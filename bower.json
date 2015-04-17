@@ -10,6 +10,7 @@
     "angularfire": "~1.0.0",
     "normalize.css": "~3.0.3",
     "angular-audio": "~1.6.2",
-    "open-iconic": "~1.1.1"
+    "open-iconic": "~1.1.1",
+    "jquery": "~2.1.3"
   }
 }

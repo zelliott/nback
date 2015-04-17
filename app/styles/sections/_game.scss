@@ -60,5 +60,14 @@
         margin: 0 10px;
       }
     }
+
+    .control-on {
+      color: $blue;
+
+      .key {
+        background: $blue;
+        color: #fff;
+      }
+    }
   }
 }

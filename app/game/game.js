@@ -64,8 +64,8 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     };
 
     // Not working
-    $scope.remainding = function () {
-      return GameService.remainding;
+    $scope.remaining = function () {
+      return GameService.remaining;
     };
 
   }])
@@ -86,9 +86,6 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         var key = keyMap[e.which];
 
         if (key) {
-          console.log(key);
-
-          // An interesting key was pressed
           e.preventDefault();
           self.handleEvent(key, e);
         }
@@ -96,7 +93,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     };
 
     this.on = function (cb) {
-      this.eventHandlers.push(cb);
+      this.eventHandlers = [cb];
     };
 
     this.handleEvent = function (key, e) {
@@ -117,7 +114,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
   })
 
-  .service('GameService', function ($interval, $timeout, ngAudio) {
+  .service('GameService', function ($interval, $timeout, ngAudio, KeyboardService) {
 
     this.audioMap = {
       0: 'A',
@@ -144,7 +141,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     this.start = function (data) {
       this.gameMode = true;
       this.generateSequence(data);
-      this.remainding = data.trials;
+      this.remaining = data.trials;
 
       var i = 0,
         self = this;
@@ -157,10 +154,37 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
         // Otherwise, step through the loop again
         } else {
-          self.step(i++);
-          self.remainding-- ;
+          self.step(i);
+
+          // Monitor for keypresses
+          var that = self,
+            j = i;
+          KeyboardService.on(function (key) {
+            if (key === 'A') {
+              that.sequence[j].player.position = true;
+              $('#controls .left').addClass('control-on');
+              $timeout(function () {
+                $('#controls .left').removeClass('control-on');
+              }, 250);
+            } else if (key === 'L') {
+              that.sequence[j].player.audio = true;
+              $('#controls .right').addClass('control-on');
+              $timeout(function () {
+                $('#controls .right').removeClass('control-on');
+              }, 250);
+            }
+          });
+
+          // Update remaining & i
+          that.remaining--;
+          i++;
         }
       }, data.time, data.trials);
+
+      // If we have none remaining
+      if (this.remaining === 0) {
+        
+      }
     };
 
     // Randomly generate sequence of positions & audios
@@ -181,12 +205,12 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
             trial.answer = {
               position: true,
               audio: false
-            }
+            };
           } else {
             trial.answer = {
               position: false,
               audio: false
-            }
+            };
           }
 
           // If audio match
@@ -194,6 +218,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
             trial.answer.audio = true;
           }
         }
+
+        trial.player = {
+          position: false,
+          audio: false
+        };
 
         this.sequence.push(trial);
       }
