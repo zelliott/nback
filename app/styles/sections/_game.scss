@@ -52,6 +52,28 @@
   #game-progress {
     display: inline-block;
     vertical-align: top;
+
+    .report {
+      margin-bottom: 20px;
+
+      .timestamp {
+        color: #999;
+      }
+
+      .accuracy {
+        font-weight: 600;
+        float: right;
+        margin-left: 20px;
+      }
+
+      .accuracy-green {
+        color: $green;
+      }
+
+      .accuracy-red {
+        color: $red;
+      }
+    }
   }
 
   #controls {

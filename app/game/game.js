@@ -288,11 +288,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       }
 
       report.incorrectPosition = report.total - report.correctPosition;
-      report.accuracyPosition = report.correctPosition / report.total;
+      report.accuracyPosition = Math.round(report.correctPosition / report.total, 2);
       report.incorrectAudio = report.total - report.correctAudio;
-      report.accuracyAudio = report.correctAudio / report.total;
-      report.accuracyTotal = (report.correctPosition + report.correctAudio) /
-        (report.total * 2);
+      report.accuracyAudio = Math.round(report.correctAudio / report.total, 2);
+      report.accuracyTotal = Math.round((report.correctPosition + report.correctAudio) /
+        (report.total * 2), 2);
 
       // Save report
       if (User.reports !== undefined) {

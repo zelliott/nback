@@ -34,13 +34,11 @@
       <div ng-show="square.on"></div>
     </div>
   </div>
-  <div id="game-progress">
+  <div id="game-progress" ng-show="!gameMode()">
     <div class="sidebar-title">Progress</div>
-    <div ng-repeat="round in user.reports">
-      <div>4/17/2015</div>
-      <div>{{ round.accuracyTotal }}</div>
-      <div>{{ round.incorrectPosition }}</div>
-      <div>{{ round.incorrectAudio }}</div>
+    <div class="report" ng-repeat="report in user.reports">
+      <span class="timestamp">4/17/2015</span>
+      <span class="accuracy" ng-class="report.accuracyTotal >= .50 ? 'accuracy-green' : 'accuracy-red'">{{ report.accuracyTotal }}</span>
     </div>
   </div>
   <div id="controls" ng-show="gameMode()">

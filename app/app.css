@@ -165,6 +165,18 @@ input[type=password] {
   #game-section #game-progress {
     display: inline-block;
     vertical-align: top; }
+    #game-section #game-progress .report {
+      margin-bottom: 20px; }
+      #game-section #game-progress .report .timestamp {
+        color: #999; }
+      #game-section #game-progress .report .accuracy {
+        font-weight: 600;
+        float: right;
+        margin-left: 20px; }
+      #game-section #game-progress .report .accuracy-green {
+        color: #00b27f; }
+      #game-section #game-progress .report .accuracy-red {
+        color: #da552f; }
   #game-section #controls {
     margin: 20px 0 0 255px;
     width: 450px; }
