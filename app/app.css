@@ -225,4 +225,22 @@ input[type=password] {
     display: inline-block;
     margin: 0 10px; }
 
+.c3-tooltip-container .c3-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  border: 2px solid #ddd;
+  padding: 8px; }
+  .c3-tooltip-container .c3-tooltip tr {
+    background: transparent;
+    border: none; }
+    .c3-tooltip-container .c3-tooltip tr th {
+      background: transparent;
+      color: #999;
+      font-weight: 500; }
+  .c3-tooltip-container .c3-tooltip .value {
+    border: none;
+    font-weight: 600; }
+
 /*# sourceMappingURL=app.css.map */

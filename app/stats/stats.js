@@ -29,20 +29,39 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
         });
 
       $scope.transform = function (data) {
-        var newData = ['Accuracy'];
-        for (var i = 0; i < $scope.reports.length; i++) {
-          newData.push($scope.reports[i].accuracyTotal);
+        console.log(data);
+        var newData = ['Accuracy'],
+          time = ['Time'];
+        for (var i = 0; i < data.length; i++) {
+          newData.push(data[i].accuracyTotal);
+          time.push(moment(data[i].timestamp).format('YYYY-M-D'));
         }
-        $scope.getChart(newData);
+        $scope.getChart(time, newData);
       };
 
-      $scope.getChart = function (data) {
+      $scope.getChart = function (time, data) {
         $scope.chart = c3.generate({
           bindto: '#accuracy-chart',
           data: {
+            x: 'Time',
             columns: [
+              time,
               data
-            ]
+            ],
+            types: {
+              data: 'area'
+            },
+            color: function () {
+              return '#00aced';
+            }
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                format: '%Y-%m-%d'
+              }
+            }
           }
         });
       };
