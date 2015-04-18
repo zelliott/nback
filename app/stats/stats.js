@@ -28,12 +28,12 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
           console.error('Error:', error);
         });
 
-      $scope.transform = function (reports) {
-        $scope.accuracyData = ['Accuracy'];
+      $scope.transform = function (data) {
+        var newData = ['Accuracy'];
         for (var i = 0; i < $scope.reports.length; i++) {
-            $scope.accuracyData.push($scope.reports[i].accuracyTotal);
+          newData.push($scope.reports[i].accuracyTotal);
         }
-        $scope.getChart($scope.accuracyData)
+        $scope.getChart(newData);
       };
 
       $scope.getChart = function (data) {
@@ -41,7 +41,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
           bindto: '#accuracy-chart',
           data: {
             columns: [
-              $scope.accuracyData
+              data
             ]
           }
         });
