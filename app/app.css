@@ -141,7 +141,9 @@ input[type=password] {
     #game-section #game-sidebar button {
       margin-top: 10px; }
     #game-section #game-sidebar .remaining {
-      margin-top: 40px; }
+      margin-top: 40px;
+      width: 125px;
+      text-align: center; }
   #game-section #game {
     display: inline-block;
     margin: 0 100px;
@@ -177,6 +179,10 @@ input[type=password] {
         color: #00b27f; }
       #game-section #game-progress .report .accuracy-red {
         color: #da552f; }
+    #game-section #game-progress a {
+      color: #00aced; }
+      #game-section #game-progress a:hover {
+        color: #006287; }
   #game-section #controls {
     margin: 20px 0 0 255px;
     width: 450px; }

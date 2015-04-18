@@ -2,9 +2,9 @@ angular.module('app', [
   'app.config',
   'app.splash',
   'app.auth',
-  'app.game'
-  // 'app.settings',
-  // 'app.stats'
+  'app.game',
+  'app.settings',
+  'app.stats'
   ])
 
   .run(['$rootScope', 'Auth', '$location', function($rootScope, Auth, $location) {

@@ -23,6 +23,8 @@
 
     .remaining {
       margin-top: 40px;
+      width: 125px;
+      text-align: center;
     }
   }
 
@@ -72,6 +74,13 @@
 
       .accuracy-red {
         color: $red;
+      }
+    }
+
+    a {
+      color: $blue;
+      &:hover {
+        color: darken($blue, 20%);
       }
     }
   }

@@ -36,10 +36,11 @@
   </div>
   <div id="game-progress" ng-show="!gameMode()">
     <div class="sidebar-title">Progress</div>
-    <div class="report" ng-repeat="report in user.reports">
+    <div class="report" ng-repeat="report in user.reports | limitTo: 10">
       <span class="timestamp">4/17/2015</span>
       <span class="accuracy" ng-class="report.accuracyTotal >= .50 ? 'accuracy-green' : 'accuracy-red'">{{ report.accuracyTotal }}</span>
     </div>
+    <a href="#/stats">View all statistics</a>
   </div>
   <div id="controls" ng-show="gameMode()">
     <div class="left"><span class="key">A</span>Position Match</div>
