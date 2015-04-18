@@ -29,19 +29,19 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
         });
 
       $scope.transform = function (data) {
-        console.log(data);
         var newData = ['Accuracy'],
           time = ['Time'];
         for (var i = 0; i < data.length; i++) {
           newData.push(data[i].accuracyTotal);
           time.push(moment(data[i].timestamp).format('YYYY-M-D'));
         }
-        $scope.getChart(time, newData);
+
+        $scope.getChart(time, newData, '#accuracy-chart');
       };
 
-      $scope.getChart = function (time, data) {
+      $scope.getChart = function (time, data, el) {
         $scope.chart = c3.generate({
-          bindto: '#accuracy-chart',
+          bindto: el,
           data: {
             x: 'Time',
             columns: [
@@ -54,6 +54,9 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
             color: function () {
               return '#00aced';
             }
+          },
+          legend: {
+            position: 'right'
           },
           axis: {
             x: {

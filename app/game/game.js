@@ -178,7 +178,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           that.remaining--;
           i++;
         }
-      }, 1000, data.trials);
+      }, data.time, data.trials);
 
       // If game is completed
       gameLoop.then(function () {

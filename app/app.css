@@ -225,22 +225,43 @@ input[type=password] {
     display: inline-block;
     margin: 0 10px; }
 
+#stats-section .chart-title {
+  font-weight: 600;
+  margin-bottom: 20px; }
+
 .c3-tooltip-container .c3-tooltip {
-  background: rgba(255, 255, 255, 0.95);
+  background: #222;
   box-shadow: none;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
-  border: 2px solid #ddd;
-  padding: 8px; }
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-clip: padding-box;
+  border: 2px solid #fff;
+  padding: 10px; }
   .c3-tooltip-container .c3-tooltip tr {
     background: transparent;
     border: none; }
     .c3-tooltip-container .c3-tooltip tr th {
       background: transparent;
-      color: #999;
-      font-weight: 500; }
+      color: #777;
+      font-weight: 500;
+      padding-top: 5px; }
+  .c3-tooltip-container .c3-tooltip td {
+    background: transparent;
+    color: #eee; }
   .c3-tooltip-container .c3-tooltip .value {
     border: none;
     font-weight: 600; }
+
+.c3 path, .c3 line {
+  stroke: #bbb;
+  stroke-width: 2px; }
+
+.c3 svg {
+  fill: #999 !important;
+  font: 12px Avenir Next !important;
+  font-weight: 600 !important; }
 
 /*# sourceMappingURL=app.css.map */
