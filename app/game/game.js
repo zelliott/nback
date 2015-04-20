@@ -18,6 +18,12 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     ['currentAuth', '$scope', 'GameService', 'KeyboardService', 'User',
     function (currentAuth, $scope, GameService, KeyboardService, User) {
 
+    var defaultGame = {
+      level: 2,
+      trials: 30,
+      time: 3000
+    };
+
     // Save user to scope
     $scope.user = User;
 
@@ -25,6 +31,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     $scope.user.$loaded()
       .then(function () {
         $scope.init();
+        User.game = (User.game === undefined) ? defaultGame : User.game;
       })
       .catch(function (error) {
         console.error('Error:', error);
@@ -36,7 +43,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     };
 
     $scope.start = function () {
-      GameService.start($scope.user.game);
+      if ($scope.user.game === undefined) {
+        GameService.start(defaultGame);
+      } else {
+        GameService.start($scope.user.game);
+      }
     };
 
     $scope.quit = function () {

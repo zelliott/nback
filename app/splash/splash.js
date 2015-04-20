@@ -1,4 +1,4 @@
-angular.module('app.splash', ['ngRoute'])
+angular.module('app.splash', ['ngRoute', 'firebase', 'firebase.auth'])
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/splash', {
@@ -12,6 +12,16 @@ angular.module('app.splash', ['ngRoute'])
     });
   }])
 
-  .controller('SplashCtrl', ['currentAuth', '$scope', function (currentAuth, $scope) {
+  .controller('SplashCtrl', ['currentAuth', '$scope', '$firebaseAuth', '$location',
+                             'Auth',
+    function (currentAuth, $scope, $firebaseAuth, $location, Auth) {
 
+      $scope.loginAnon = function () {
+        Auth.$authAnonymously().then(function(data) {
+          $location.path("/");
+          console.log("Logged in as:", data.uid);
+        }).catch(function(error) {
+          console.error("Authentication failed:", error);
+        });
+      };
   }]);

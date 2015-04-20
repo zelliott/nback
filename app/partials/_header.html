@@ -1,13 +1,13 @@
 <div id="header">
   <div class="max-width">
-    <a ng-show="!loggedIn" class="right" href="#/auth">Sign up</a>
-    <a ng-show="loggedIn" class="right" ng-click="auth.$unauth()" href="#/splash">Logout</a>
-    <a ng-show="loggedIn" href="#/settings" class="right">
+    <a ng-show="!loggedIn || anon" class="right" href="#/auth">Sign up</a>
+    <a ng-show="loggedIn && !anon" class="right" ng-click="auth.$unauth()" href="#/splash">Logout</a>
+    <a ng-show="loggedIn && !anon" href="#/settings" class="right">
       <svg class="icon" viewBox="0 0 8 8">
         <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#cog" class="icon-cog"></use>
       </svg>
     </a>
-    <a ng-show="loggedIn" href="#/stats" class="right">
+    <a ng-show="loggedIn && !anon" href="#/stats" class="right">
       <svg class="icon" viewBox="0 0 8 8">
         <use xlink:href="../bower_components/open-iconic/sprite/open-iconic.svg#graph" class="icon-graph"></use>
       </svg>

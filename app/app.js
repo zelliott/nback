@@ -13,6 +13,7 @@ angular.module('app', [
     Auth.$onAuth(function(user) {
       $rootScope.loggedIn = !!user;
       $rootScope.auth = Auth;
+      $rootScope.anon = Auth.$getAuth().provider === 'anonymous';
     });
 
     /* If you try to go to a page that requires authentication, and you are
