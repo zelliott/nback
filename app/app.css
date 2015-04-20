@@ -94,21 +94,27 @@ button:focus {
 
 input[type=text],
 input[type=email],
-input[type=password] {
+input[type=password],
+input[type=number] {
   border: 1px solid #ddd;
   border-radius: 20px;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
   background-clip: padding-box;
+  color: #999;
   display: block;
   padding: 5px 15px; }
   input[type=text]:hover,
   input[type=email]:hover,
-  input[type=password]:hover {
+  input[type=password]:hover,
+  input[type=number]:hover {
     border-color: #bbb; }
   input[type=text]:focus,
   input[type=email]:focus,
-  input[type=password]:focus {
+  input[type=password]:focus,
+  input[type=number]:focus {
+    border-color: #00aced;
+    color: #00aced;
     outline: none; }
 
 #auth-section {
@@ -224,6 +230,19 @@ input[type=password] {
   #home-section .btn {
     display: inline-block;
     margin: 0 10px; }
+
+#settings-section .section-title {
+  font-weight: 600;
+  margin-bottom: 20px; }
+#settings-section div {
+  margin-bottom: 20px; }
+  #settings-section div label {
+    color: #999;
+    display: block;
+    margin-bottom: 10px; }
+  #settings-section div input[type=number] {
+    text-align: center;
+    width: 60px; }
 
 #stats-section .chart-title {
   font-weight: 600;

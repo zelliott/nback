@@ -18,7 +18,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
     ['currentAuth', '$scope', 'User',
     function (currentAuth, $scope, User) {
 
-      // Upon load from firebase, initialize the game
+      // Upon load from firebase
       User.$loaded()
         .then(function () {
           $scope.reports = User.reports;

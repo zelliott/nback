@@ -1,0 +1,21 @@
+#settings-section {
+  .section-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  div {
+    margin-bottom: 20px;
+
+    label {
+      color: #999;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type=number] {
+      text-align: center;
+      width: 60px;
+    }
+  }
+}

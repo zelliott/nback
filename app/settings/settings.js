@@ -12,4 +12,32 @@ angular.module('app.settings', ['ngRoute', 'ngAudio', 'firebase.sync'])
         }]
       }
     });
+  }])
+
+  .controller('SettingsCtrl',
+    ['currentAuth', '$scope', 'User',
+    function (currentAuth, $scope, User) {
+
+      // Upon load from firebase
+      User.$loaded()
+        .then(function () {
+          $scope.game = {
+            level: User.game.level,
+            trials: User.game.trials,
+            time: User.game.time
+          };
+        })
+        .catch(function (error) {
+          console.error('Error:', error);
+        });
+
+      $scope.save = function () {
+        User.game = $scope.game;
+        
+        User.$save().then(function (ref) {
+          console.log('Success: ', ref);
+        }, function (error) {
+          console.log('Error:', error);
+        });
+      };
   }]);
