@@ -29,14 +29,20 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
         });
 
       $scope.transform = function (data) {
-        var newData = ['Accuracy'],
+        var accuracyTotal = ['Accuracy'],
+          accuracyPosition = ['Position Accuracy'],
+          accuracyAudio = ['Audio Accuracy'],
           time = ['Time'];
         for (var i = 0; i < data.length; i++) {
-          newData.push(data[i].accuracyTotal);
+          accuracyTotal.push(data[i].accuracyTotal);
+          accuracyPosition.push(data[i].accuracyPosition);
+          accuracyAudio.push(data[i].accuracyAudio);
           time.push(moment(data[i].timestamp).format('YYYY-M-D'));
         }
 
-        $scope.getChart(time, newData, '#accuracy-chart');
+        $scope.getChart(time,
+          [accuracyTotal, accuracyPosition, accuracyAudio],
+          '#accuracy-chart');
       };
 
       $scope.getChart = function (time, data, el) {
@@ -46,13 +52,21 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
             x: 'Time',
             columns: [
               time,
-              data
+              data[0],
+              data[1],
+              data[2]
             ],
             types: {
               data: 'area'
             },
-            color: function () {
-              return '#00aced';
+            color: function (color, d) {
+              if (d.id === data[0][0]) {
+                return '#00aced';
+              } else if (d.id === data[1][0]) {
+                return '#f2a43e';
+              } else if (d.id === data[2][0]) {
+                return '#00b27f';
+              }
             }
           },
           legend: {
