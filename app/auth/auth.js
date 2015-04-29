@@ -11,6 +11,7 @@ angular.module('app.auth', ['ngRoute', 'firebase', 'firebase.auth'])
                            '$firebaseObject', 'FBURL', 'Auth',
     function ($scope, $location, $firebaseAuth, $firebaseObject, FBURL, Auth) {
 
+      // Signup for a new account
       $scope.signup = function (email, pass) {
         Auth.$createUser({
           email: email,
@@ -44,6 +45,7 @@ angular.module('app.auth', ['ngRoute', 'firebase', 'firebase.auth'])
         });
       };
 
+      // Authenticate with email/password
       $scope.login = function (email, pass) {
         Auth.$authWithPassword({
           email: email,

@@ -28,6 +28,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
           console.error('Error:', error);
         });
 
+      // Transform data for c3js
       $scope.transform = function (data) {
         var accuracyTotal = ['Accuracy'],
           accuracyPosition = ['Position Accuracy'],
@@ -45,6 +46,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
           '#accuracy-chart');
       };
 
+      // Load and bind data to the chart
       $scope.getChart = function (time, data, el) {
         $scope.chart = c3.generate({
           bindto: el,

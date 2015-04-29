@@ -16,6 +16,7 @@ angular.module('app.splash', ['ngRoute', 'firebase', 'firebase.auth'])
                              'Auth',
     function (currentAuth, $scope, $firebaseAuth, $location, Auth) {
 
+      // Allow anonymous authentication
       $scope.loginAnon = function () {
         Auth.$authAnonymously().then(function(data) {
           $location.path("/");

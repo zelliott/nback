@@ -18,6 +18,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     ['currentAuth', '$scope', 'GameService', 'KeyboardService', 'User',
     function (currentAuth, $scope, GameService, KeyboardService, User) {
 
+    // If not logged in, load default game statistics
     var defaultGame = {
       level: 2,
       trials: 30,
@@ -36,6 +37,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       .catch(function (error) {
         console.error('Error:', error);
       });
+
+    /**
+     * The following methods do exactly what their method titles
+     * say they do... literally the most self-explanatory group of methods
+     */
 
     $scope.init = function () {
       KeyboardService.init();
@@ -74,13 +80,13 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       return GameService.board;
     };
 
-    // Not working
     $scope.remaining = function () {
       return GameService.remaining;
     };
 
   }])
 
+  // Handle keyboard events
   .service('KeyboardService', function ($document, ngAudio) {
 
     var keyMap = {
@@ -127,6 +133,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
   .service('GameService', function ($interval, $timeout, ngAudio, KeyboardService, User) {
 
+    // Create audio map
     this.audioMap = {
       0: 'B',
       1: 'F',
@@ -141,6 +148,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     this.sequence = [];
     this.board = [];
 
+    // Reset game
     this.reset = function () {
       this.paused = false;
       this.gameMode = false;
@@ -148,6 +156,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       this.resetBoard();
     }
 
+    // Start game
     this.start = function (data) {
       this.gameMode = true;
       this.generateSequence(data);
@@ -162,6 +171,13 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         if (!self.gameMode) {
           $interval.cancel(gameLoop);
 
+        } else if (self.paused) {
+          var pauseTimer = $timeout(function () {
+              if (!self.paused) {
+                $timeout.cancel(pauseTimer);
+              }
+          }, 100000);
+
         // Otherwise, step through the loop again
         } else {
           self.step(i);
@@ -170,18 +186,30 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           var that = self,
             j = i;
           KeyboardService.on(function (key) {
+
+            // Position Match
             if (key === 'A') {
               that.sequence[j].player.position = true;
               $('#controls .left').addClass('control-on');
               $timeout(function () {
                 $('#controls .left').removeClass('control-on');
               }, 250);
+
+            // Location Match
             } else if (key === 'L') {
               that.sequence[j].player.audio = true;
               $('#controls .right').addClass('control-on');
               $timeout(function () {
                 $('#controls .right').removeClass('control-on');
               }, 250);
+
+            // Pause game
+            } else if (key === 'P') {
+              self.paused = !self.paused;
+
+            // Exit game
+            } else if (key === 'ESC') {
+              self.gameMode = false;
             }
           });
 
@@ -208,7 +236,10 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       var trials = data.trials,
           n = data.level;
 
+      // For each trial
       for (var i = 0; i < trials; i++) {
+
+        // Generate a random position and audio
         var trial = {};
         trial.position = Math.floor(Math.random() * 8);
         trial.audio = this.audioMap[Math.floor(Math.random() * 7)];
@@ -216,7 +247,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         // If we're still in the sequence
         if (i - n >= 0) {
 
-          // If position match
+          // Determine correct position nanswer
           if (this.sequence[i - n].position === trial.position) {
             trial.answer = {
               position: true,
@@ -229,7 +260,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
             };
           }
 
-          // If audio match
+          // Determine correct audio answer
           if (this.sequence[i - n].audio === trial.audio) {
             trial.answer.audio = true;
           }
@@ -240,23 +271,28 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           };
         }
 
+        // Set default player response
         trial.player = {
           position: false,
           audio: false
         };
 
+        // Add trial to sequence
         this.sequence.push(trial);
       }
     };
 
+    // Pause game
     this.pause = function () {
       this.paused = true;
     };
 
+    // Resume game
     this.resume = function () {
       this.paused = false;
     };
 
+    // Step through the game
     this.step = function (i) {
       this.board[this.sequence[i].position].on = true;
       ngAudio.play('assets/audio/' + (this.sequence[i].audio).toLowerCase() + '.mp3');
@@ -266,6 +302,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       }, 1000);
     };
 
+    // Reset the game board
     this.resetBoard = function () {
       this.board = [];
       for (var i = 0; i <= 8; i++) {
@@ -273,8 +310,10 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       }
     };
 
+    // Generate report
     this.generateReport = function () {
 
+      // Report template
       var report = {
         total: this.sequence.length,
         correctPosition: 0,
@@ -287,7 +326,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         timestamp: moment().format()
       }
 
-
+      // Calculate report statistics
       for (var i = 0; i < this.sequence.length; i++) {
         var trial = this.sequence[i];
         if (trial.answer.position === trial.player.position) {
@@ -313,11 +352,11 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       } else {
         User.reports = [report];
       }
+
       User.$save().then(function (ref) {
         console.log('Success: ', ref);
       }, function (error) {
         console.log('Error:', error);
       });
     };
-
   });

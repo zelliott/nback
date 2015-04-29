@@ -18,7 +18,7 @@ angular.module('app.settings', ['ngRoute', 'ngAudio', 'firebase.sync'])
     ['currentAuth', '$scope', 'User',
     function (currentAuth, $scope, User) {
 
-      // Upon load from firebase
+      // Upon load from firebase, load current settings
       User.$loaded()
         .then(function () {
           $scope.game = {
@@ -31,9 +31,9 @@ angular.module('app.settings', ['ngRoute', 'ngAudio', 'firebase.sync'])
           console.error('Error:', error);
         });
 
+      // Save changed user settings
       $scope.save = function () {
         User.game = $scope.game;
-        
         User.$save().then(function (ref) {
           console.log('Success: ', ref);
         }, function (error) {
