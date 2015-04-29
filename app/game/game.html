@@ -5,6 +5,7 @@
       <div class="info">{{ user.game.level }} Back</div>
       <div class="info">{{ user.game.trials }} trials</div>
       <div class="info">{{ user.game.time / 1000 }} sec / trial</div>
+      <div class="info">{{ user.game.flashTime / 1000 }} sec / flash</div>
       <button class="btn btn-orange" ng-click="start()">Start</button>
     </div>
     <div ng-show="gameMode()">
@@ -41,6 +42,10 @@
       <span class="accuracy" ng-class="report.accuracyTotal >= .50 ? 'accuracy-green' : 'accuracy-red'">{{ report.accuracyTotal }}</span>
     </div>
     <a href="#/stats">View all statistics</a>
+  </div>
+  <div id="game-progress" ng-show="!gameMode() && anon">
+    <div class="anon-msg">Save your progress by creating an account or logging in.</div>
+    <a href="#/auth">Sign up or login</a>
   </div>
   <div id="controls" ng-show="gameMode()">
     <div class="left"><span class="key">A</span>Position Match</div>

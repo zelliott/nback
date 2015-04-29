@@ -12,5 +12,10 @@
     <label for="time">Time</label>
     <input type="number" id="time" ng-model="game.time" value="{{ game.time }}"></input>
   </div>
+  <div>
+    <label for="flashTime">Flash Time</label>
+    <input type="number" id="flashTime" ng-model="game.flashTime" value="{{ game.flashTime }}"></input>
+  </div>
   <button class="btn btn-blue" ng-click="save()">Save</button>
+  <span class="success-msg" ng-show='displaySuccess'>Settings saved!</span>
 </div>

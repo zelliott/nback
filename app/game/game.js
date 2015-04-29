@@ -22,7 +22,8 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     var defaultGame = {
       level: 2,
       trials: 30,
-      time: 3000
+      time: 3000,
+      flashTime: 1000
     };
 
     // Save user to scope
@@ -161,6 +162,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       this.gameMode = true;
       this.generateSequence(data);
       this.remaining = data.trials;
+      this.flashTime = data.flashTime;
 
       var i = 0,
         self = this;
@@ -180,7 +182,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
         // Otherwise, step through the loop again
         } else {
-          self.step(i);
+          self.step(i, self.flashTime);
 
           // Monitor for keypresses
           var that = self,
@@ -264,7 +266,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           if (this.sequence[i - n].audio === trial.audio) {
             trial.answer.audio = true;
           }
-        } else if (i == 0) {
+        } else if (i - n < 0) {
           trial.answer = {
             position: false,
             audio: false
@@ -293,13 +295,13 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     };
 
     // Step through the game
-    this.step = function (i) {
+    this.step = function (i, time) {
       this.board[this.sequence[i].position].on = true;
       ngAudio.play('assets/audio/' + (this.sequence[i].audio).toLowerCase() + '.mp3');
       var self = this;
       $timeout(function () {
         self.board[self.sequence[i].position].on = false;
-      }, 1000);
+      }, time);
     };
 
     // Reset the game board
@@ -328,6 +330,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
       // Calculate report statistics
       for (var i = 0; i < this.sequence.length; i++) {
+
         var trial = this.sequence[i];
         if (trial.answer.position === trial.player.position) {
           report.correctPosition++;
@@ -347,7 +350,6 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
       // Save report
       if (User.reports !== undefined) {
-        console.log(User.reports);
         User.reports.push(report);
       } else {
         User.reports = [report];

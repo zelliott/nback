@@ -38,7 +38,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
           accuracyTotal.push(data[i].accuracyTotal);
           accuracyPosition.push(data[i].accuracyPosition);
           accuracyAudio.push(data[i].accuracyAudio);
-          time.push(moment(data[i].timestamp).format('YYYY-M-D'));
+          time.push(moment(data[i].timestamp).format('YYYY-M-D h:mm'));
         }
 
         $scope.getChart(time,
@@ -58,6 +58,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
               data[1],
               data[2]
             ],
+            xFormat: '%Y-%m-%d %H:%M',
             types: {
               data: 'area'
             },
@@ -71,6 +72,12 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
               }
             }
           },
+          subchart: {
+            show: true
+          },
+          zoom: {
+            enabled: true
+          },
           legend: {
             position: 'right'
           },
@@ -78,7 +85,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
             x: {
               type: 'timeseries',
               tick: {
-                format: '%Y-%m-%d'
+                format: '%m-%d'
               }
             }
           }

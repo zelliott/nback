@@ -83,6 +83,12 @@
         color: darken($blue, 20%);
       }
     }
+
+    .anon-msg {
+      color: #999;
+      margin-bottom: 20px;
+      width: 180px;
+    }
   }
 
   #controls {

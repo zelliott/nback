@@ -189,6 +189,10 @@ input[type=number] {
       color: #00aced; }
       #game-section #game-progress a:hover {
         color: #006287; }
+    #game-section #game-progress .anon-msg {
+      color: #999;
+      margin-bottom: 20px;
+      width: 180px; }
   #game-section #controls {
     margin: 20px 0 0 255px;
     width: 450px; }
@@ -243,6 +247,9 @@ input[type=number] {
   #settings-section div input[type=number] {
     text-align: center;
     width: 60px; }
+#settings-section .success-msg {
+  color: #00aced;
+  margin-left: 20px; }
 
 #stats-section .chart-title {
   font-weight: 600;

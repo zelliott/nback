@@ -15,8 +15,10 @@ angular.module('app.settings', ['ngRoute', 'ngAudio', 'firebase.sync'])
   }])
 
   .controller('SettingsCtrl',
-    ['currentAuth', '$scope', 'User',
-    function (currentAuth, $scope, User) {
+    ['currentAuth', '$scope', 'User', '$timeout',
+    function (currentAuth, $scope, User, $timeout) {
+
+      $scope.displaySuccess = false;
 
       // Upon load from firebase, load current settings
       User.$loaded()
@@ -24,7 +26,8 @@ angular.module('app.settings', ['ngRoute', 'ngAudio', 'firebase.sync'])
           $scope.game = {
             level: User.game.level,
             trials: User.game.trials,
-            time: User.game.time
+            time: User.game.time,
+            flashTime: User.game.flashTime
           };
         })
         .catch(function (error) {
@@ -36,8 +39,17 @@ angular.module('app.settings', ['ngRoute', 'ngAudio', 'firebase.sync'])
         User.game = $scope.game;
         User.$save().then(function (ref) {
           console.log('Success: ', ref);
+          $scope.success();
         }, function (error) {
           console.log('Error:', error);
         });
       };
+
+      // Display a success msg in the view
+      $scope.success = function () {
+        $scope.displaySuccess = true;
+        $timeout(function () {
+          $scope.displaySuccess = false;
+        }, 2000);
+      }
   }]);

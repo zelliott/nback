@@ -25,7 +25,8 @@ angular.module('app.auth', ['ngRoute', 'firebase', 'firebase.auth'])
           user.game = {
             level: 1,
             trials: 30,
-            time: 3000
+            time: 3000,
+            flashTime: 1000
           };
           user.$save().then(function (ref) {
             console.log('Success: ', ref);
