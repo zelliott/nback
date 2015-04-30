@@ -16,8 +16,8 @@
 
 ### To run:
 
-`npm install`
+`$ npm install`
 
-`bower install`
+`$ bower install`
 
-`npm start`
+`$ npm start    // Should be running on localhost:8000/app/`
