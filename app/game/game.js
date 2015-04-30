@@ -69,9 +69,10 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       GameService.resume();
     };
 
-    $scope.paused = function () {
-      return GameService.paused;
-    };
+//    Unimplemented
+//    $scope.paused = function () {
+//      return GameService.paused;
+//    };
 
     $scope.gameMode = function () {
       return GameService.gameMode;
@@ -93,7 +94,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
     var keyMap = {
       65: 'A',
       76: 'L',
-      80: 'P',
+      // 80: 'P',
       27: 'ESC'
     };
 
@@ -155,7 +156,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       this.gameMode = false;
       this.sequence = [];
       this.resetBoard();
-    }
+    };
 
     // Start game
     this.start = function (data) {
@@ -173,13 +174,14 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         if (!self.gameMode) {
           $interval.cancel(gameLoop);
 
+        // Unimplemented
         } else if (self.paused) {
           
-          var pauseTimer = $interval(function () {
-              if (!self.paused) {
-                $interval.cancel(pauseTimer);
-              }
-          }, 1000, 100000000);
+//          var pauseTimer = $interval(function () {
+//              if (!self.paused) {
+//                $interval.cancel(pauseTimer);
+//              }
+//          }, 1000, 100000000);
 
         // Otherwise, step through the loop again
         } else {
@@ -206,9 +208,9 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
                 $('#controls .right').removeClass('control-on');
               }, 250);
 
-            // Pause game
+            // Unimplemented: pause game
             } else if (key === 'P') {
-              self.paused = !self.paused;
+              // self.paused = !self.paused;
 
             // Exit game
             } else if (key === 'ESC') {
@@ -285,15 +287,15 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
       }
     };
 
-    // Pause game
-    this.pause = function () {
-      this.paused = true;
-    };
+//    Unimplemented
+//    this.pause = function () {
+//      this.paused = true;
+//    };
 
-    // Resume game
-    this.resume = function () {
-      this.paused = false;
-    };
+//    Unimplemented
+//    this.resume = function () {
+//      this.paused = false;
+//    };
 
     // Step through the game
     this.step = function (i, time) {
@@ -327,7 +329,7 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
         accuracyAudio: 0,
         accuracyTotal: 0,
         timestamp: moment().format()
-      }
+      };
 
       // Calculate report statistics
       for (var i = 0; i < this.sequence.length; i++) {
