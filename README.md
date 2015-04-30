@@ -20,4 +20,6 @@
 
 `$ bower install`
 
-`$ npm start    // Should be running on localhost:8000/app/`
+`$ npm start`
+
+Navigate to **http://localhost:8000/app/**
