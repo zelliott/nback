@@ -35,6 +35,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
           accuracyAudio = ['Audio Accuracy'],
           time = ['Time'];
         for (var i = 0; i < data.length; i++) {
+          
           accuracyTotal.push(data[i].accuracyTotal);
           accuracyPosition.push(data[i].accuracyPosition);
           accuracyAudio.push(data[i].accuracyAudio);
@@ -85,7 +86,7 @@ angular.module('app.stats', ['ngRoute', 'ngAudio', 'firebase.sync'])
             x: {
               type: 'timeseries',
               tick: {
-                format: '%m-%d'
+                format: '%m-%d %H:%M'
               }
             }
           }

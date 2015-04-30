@@ -7,7 +7,8 @@ angular.module('app', [
   'app.stats'
   ])
 
-  .run(['$rootScope', 'Auth', '$location', function($rootScope, Auth, $location) {
+  .run(['$rootScope', 'Auth', '$location',
+    function($rootScope, Auth, $location) {
 
     // Bring whether or not the user is logged in into the $rootScope
     Auth.$onAuth(function(user) {
