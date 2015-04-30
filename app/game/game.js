@@ -174,11 +174,12 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
           $interval.cancel(gameLoop);
 
         } else if (self.paused) {
-          var pauseTimer = $timeout(function () {
+          
+          var pauseTimer = $interval(function () {
               if (!self.paused) {
-                $timeout.cancel(pauseTimer);
+                $interval.cancel(pauseTimer);
               }
-          }, 100000);
+          }, 1000, 100000000);
 
         // Otherwise, step through the loop again
         } else {
@@ -243,8 +244,8 @@ angular.module('app.game', ['ngRoute', 'ngAudio', 'firebase.sync'])
 
         // Generate a random position and audio
         var trial = {};
-        trial.position = Math.floor(Math.random() * 8);
-        trial.audio = this.audioMap[Math.floor(Math.random() * 7)];
+        trial.position = Math.floor(Math.random() * 9);
+        trial.audio = this.audioMap[Math.floor(Math.random() * 8)];
 
         // If we're still in the sequence
         if (i - n >= 0) {
